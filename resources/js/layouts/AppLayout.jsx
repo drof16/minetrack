@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Boxes, ClipboardList, CreditCard, Home, LogOut, Menu, Package, ReceiptText, Settings, Truck, Users, X } from 'lucide-react';
+import { Boxes, ClipboardList, CreditCard, Home, LogOut, Menu, Package, ReceiptText, Settings, Sparkles, Truck, Users, X } from 'lucide-react';
 import { api } from '@/lib/api';
 
 const navItems = [
     ['Dashboard', '/', Home],
     ['Items', '/items', Package],
+    ['Quick Import', '/quick-import', Sparkles],
     ['Mine Tracker', '/mine-tracker', ClipboardList],
     ['Customers', '/customers', Users],
     ['Orders', '/orders', Boxes],

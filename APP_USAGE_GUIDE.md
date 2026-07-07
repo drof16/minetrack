@@ -130,6 +130,41 @@ payment_methods
     - Go to Reports.
     - Check today's sales, weekly sales, monthly sales, paid invoices, unpaid invoices, sold items, and cancelled orders.
 
+## Faster Workflow With Quick Import
+
+Use Quick Import when you want to paste many mine comments instead of recording each miner one by one.
+
+1. Go to Quick Import.
+
+2. Paste one mine comment per line.
+
+   Supported examples:
+
+   ```text
+   ITM-001 - Maria Santos - mine
+   Juan Dela Cruz mine ITM-002
+   ITM-003 Ana Reyes mine backup
+   ```
+
+3. If every pasted line belongs to the same item, choose that item in Default item.
+   - If lines include item codes, leave Default item as Detect item code from each line.
+
+4. Choose automation options.
+   - Create missing customers: creates a basic customer record when the pasted name does not exist yet.
+   - Create orders for active mines: groups newly active mined items by customer into orders.
+   - Generate invoices too: creates invoices for the auto-created orders.
+
+5. Click Preview import.
+   - Ready lines can be processed.
+   - Needs attention lines are missing an item, customer name, or mine keyword.
+   - If an item already has an active miner, the imported line becomes a backup miner.
+
+6. Click Process ready lines.
+
+7. Review the import results.
+   - Created orders and invoices are shown with links.
+   - Open the order or invoice when you need to continue payment or fulfillment.
+
 ## Useful Maintenance Commands
 
 Run migrations and seeders on the configured database:

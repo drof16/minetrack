@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\BulkMineImportController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DashboardController;
@@ -45,6 +46,8 @@ Route::middleware(['web', 'auth:sanctum'])->group(function (): void {
     Route::post('/items/{item}/backup-mines', [MineController::class, 'storeBackup']);
     Route::patch('/mines/{mine}/cancel', [MineController::class, 'cancel']);
     Route::post('/items/{item}/move-to-next-miner', [MineController::class, 'moveToNextMiner']);
+    Route::post('/bulk-mines/preview', [BulkMineImportController::class, 'preview']);
+    Route::post('/bulk-mines/process', [BulkMineImportController::class, 'process']);
 
     Route::apiResource('customers', CustomerController::class);
     Route::get('/customers/{customer}/mined-items', [CustomerController::class, 'minedItems']);

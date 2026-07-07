@@ -13,6 +13,7 @@ import ItemsPage from '@/pages/items/ItemsPage';
 import InvoiceDetailPage from '@/pages/invoices/InvoiceDetailPage';
 import InvoicesPage from '@/pages/invoices/InvoicesPage';
 import MineTrackerPage from '@/pages/mines/MineTrackerPage';
+import QuickImportPage from '@/pages/mines/QuickImportPage';
 import CreateOrderPage from '@/pages/orders/CreateOrderPage';
 import OrderDetailPage from '@/pages/orders/OrderDetailPage';
 import OrdersPage from '@/pages/orders/OrdersPage';
@@ -61,6 +62,14 @@ function App() {
         return (
             <AppLayout title="Mine Tracker" user={user}>
                 <MineTrackerPage />
+            </AppLayout>
+        );
+    }
+
+    if (path === '/quick-import') {
+        return (
+            <AppLayout title="Quick Import" user={user}>
+                <QuickImportPage />
             </AppLayout>
         );
     }

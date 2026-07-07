@@ -1,0 +1,17 @@
+{
+    "name": "MineTrack",
+    "short_name": "MineTrack",
+    "description": "Manual-first Facebook Mine selling tracker",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#047857",
+    "icons": [
+        {
+            "src": "/pwa-icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}

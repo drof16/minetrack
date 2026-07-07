@@ -43,14 +43,20 @@ class InvoiceController extends Controller
     {
         abort_unless($invoice->pdf_path && Storage::disk('public')->exists($invoice->pdf_path), 404);
 
-        return Storage::disk('public')->download($invoice->pdf_path);
+        return response(Storage::disk('public')->get($invoice->pdf_path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$invoice->invoice_number.'.pdf"',
+        ]);
     }
 
     public function image(Invoice $invoice)
     {
         abort_unless($invoice->image_path && Storage::disk('public')->exists($invoice->image_path), 404);
 
-        return Storage::disk('public')->download($invoice->image_path);
+        return response(Storage::disk('public')->get($invoice->image_path), 200, [
+            'Content-Type' => 'image/svg+xml',
+            'Content-Disposition' => 'inline; filename="'.$invoice->invoice_number.'.svg"',
+        ]);
     }
 
     public function markSent(Invoice $invoice, Request $request): InvoiceResource

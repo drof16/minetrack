@@ -16,6 +16,10 @@ export default function SettingsPage() {
     const [locationForm, setLocationForm] = useState({ location_name: '', location_type: 'pickup', fee: '0', is_active: true });
     const [methodForm, setMethodForm] = useState({ name: '', is_active: true });
     const [error, setError] = useState('');
+    const [testingOpen, setTestingOpen] = useState(false);
+    const [resetConfirmation, setResetConfirmation] = useState('');
+    const [resetMessage, setResetMessage] = useState('');
+    const [isResetting, setIsResetting] = useState(false);
 
     async function load() {
         const [settingsRes, categoriesRes, locationsRes, methodsRes] = await Promise.all([
@@ -75,6 +79,29 @@ export default function SettingsPage() {
         await load();
     }
 
+    async function resetDatabase() {
+        if (resetConfirmation !== 'RESET') {
+            setError('Type RESET before resetting the testing database.');
+            return;
+        }
+
+        setError('');
+        setResetMessage('');
+        setIsResetting(true);
+
+        try {
+            const response = await api.post('/testing/reset-database', { confirmation: resetConfirmation });
+            setResetMessage(response.data.message || 'Database reset to seeded state.');
+            setResetConfirmation('');
+            await load();
+        } catch (exception) {
+            const errors = exception.response?.data?.errors;
+            setError(errors ? Object.values(errors).flat().join(' ') : exception.response?.data?.message || 'Database could not be reset.');
+        } finally {
+            setIsResetting(false);
+        }
+    }
+
     return (
         <div className="space-y-6">
             <div>
@@ -132,6 +159,30 @@ export default function SettingsPage() {
                     <Button type="submit">Add method</Button>
                     <RecordList records={methods} render={(method) => `${method.name}${method.is_active ? '' : ' (inactive)'}`} onDelete={(method) => remove(`/payment-methods/${method.id}`)} />
                 </CrudCard>
+            </div>
+            <div className="pt-6">
+                <button type="button" className="text-xs text-muted-foreground/70 hover:text-muted-foreground" onClick={() => setTestingOpen((open) => !open)}>
+                    Testing tools
+                </button>
+                {testingOpen ? (
+                    <Card className="mt-3 border-dashed">
+                        <CardHeader>
+                            <CardTitle>Reset testing database</CardTitle>
+                            <CardDescription>Removes added records and returns MineTrack to the original seeded state. This tool is available only in local/testing mode.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {resetMessage ? <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">{resetMessage}</div> : null}
+                            <div className="max-w-md space-y-2">
+                                <Label>Type RESET to confirm</Label>
+                                <Input value={resetConfirmation} onChange={(event) => setResetConfirmation(event.target.value)} placeholder="RESET" />
+                            </div>
+                            <Button type="button" variant="destructive" disabled={isResetting || resetConfirmation !== 'RESET'} onClick={resetDatabase}>
+                                <Trash2 className="h-4 w-4" />
+                                {isResetting ? 'Resetting...' : 'Reset seeded database'}
+                            </Button>
+                        </CardContent>
+                    </Card>
+                ) : null}
             </div>
         </div>
     );

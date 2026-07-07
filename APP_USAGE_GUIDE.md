@@ -197,3 +197,23 @@ Check routes:
 - Use `migrate:fresh --seed` only when it is okay to erase existing MineTrack data.
 - Keep `.env` private. It is ignored by Git and should not be uploaded to GitHub.
 - The default admin password should be changed before real production use.
+
+## Reset Test Data
+
+For testing, Settings includes a tucked-away reset tool.
+
+1. Go to Settings.
+2. Scroll to the bottom.
+3. Click Testing tools.
+4. Type `RESET`.
+5. Click Reset seeded database.
+
+This runs the same reset as:
+
+```powershell
+.\tools\php\php.exe artisan migrate:fresh --seed
+```
+
+It removes added items, customers, mines, orders, invoices, payments, and other test records, then restores the original seeded admin, categories, payment methods, shop settings, and locations.
+
+The reset button is only available when the Laravel app is running in `local` or `testing` mode.

@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\TestingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -84,4 +85,6 @@ Route::middleware(['web', 'auth:sanctum'])->group(function (): void {
     Route::get('/reports/invoices/unpaid', [ReportController::class, 'unpaidInvoices']);
     Route::get('/reports/items/sold', [ReportController::class, 'soldItems']);
     Route::get('/reports/orders/cancelled', [ReportController::class, 'cancelledOrders']);
+
+    Route::post('/testing/reset-database', [TestingController::class, 'resetDatabase']);
 });

@@ -14,6 +14,7 @@ class CustomerResource extends JsonResource
             'name' => $this->name,
             'facebook_name' => $this->facebook_name,
             'facebook_profile_url' => $this->facebook_profile_url,
+            'facebook_user_id' => $this->facebook_user_id,
             'contact_number' => $this->contact_number,
             'address' => $this->address,
             'notes' => $this->notes,

@@ -175,6 +175,48 @@ Use Quick Import when you want to paste many mine comments instead of recording 
    - Created orders and invoices are shown with links.
    - Open the order or invoice when you need to continue payment or fulfillment.
 
+## Facebook Page Comment Automation
+
+MineTrack can import mine comments from a Facebook Page post. This is for Facebook Pages, not personal profiles.
+
+### Configure Facebook Page access
+
+Add these values to `.env`:
+
+```env
+FACEBOOK_GRAPH_VERSION=v24.0
+FACEBOOK_PAGE_ID=your_page_id
+FACEBOOK_PAGE_ACCESS_TOKEN=your_page_access_token
+```
+
+Then clear config:
+
+```powershell
+.\tools\php\php.exe artisan config:clear
+```
+
+The Page access token must be able to read Page post engagement/comments. In Meta app setup, this normally means Page-related permissions such as Page engagement access, and the token must belong to the Page being synced.
+
+### Sync an item from a Facebook Page post
+
+1. Go to Items.
+2. Add or edit an item.
+3. Add the Facebook post link.
+4. If URL parsing does not work, also add the Facebook post ID.
+5. Open the item detail page.
+6. Click Sync Page comments.
+
+MineTrack will:
+
+- Read comments from the configured Facebook Page post.
+- Import only comments containing `mine`.
+- Create a customer when the Facebook commenter does not exist yet.
+- Add the first miner as active.
+- Add later miners as backup miners.
+- Skip comments that were already imported.
+
+After syncing, continue with the normal order and invoice workflow.
+
 ## Useful Maintenance Commands
 
 Run migrations and seeders on the configured database:
@@ -203,7 +245,7 @@ Check routes:
 
 ## Important Notes
 
-- Facebook API integration is not included yet. MineTrack is manual-first.
+- Facebook Page comment sync is available for Page posts when `FACEBOOK_PAGE_ID` and `FACEBOOK_PAGE_ACCESS_TOKEN` are configured. Personal profile automation is not supported.
 - Use `migrate:fresh --seed` only when it is okay to erase existing MineTrack data.
 - Keep `.env` private. It is ignored by Git and should not be uploaded to GitHub.
 - The default admin password should be changed before real production use.

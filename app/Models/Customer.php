@@ -16,6 +16,7 @@ class Customer extends Model
         'name',
         'facebook_name',
         'facebook_profile_url',
+        'facebook_user_id',
         'contact_number',
         'address',
         'notes',

@@ -15,6 +15,7 @@ const defaultForm = {
     condition: '',
     selling_price: '',
     facebook_post_url: '',
+    facebook_post_id: '',
     status: 'Available',
 };
 
@@ -49,6 +50,7 @@ export default function ItemFormPage({ itemId }) {
                     condition: item.condition || '',
                     selling_price: item.selling_price || '',
                     facebook_post_url: item.facebook_post_url || '',
+                    facebook_post_id: item.facebook_post_id || '',
                     status: item.status || 'Available',
                 });
             })
@@ -133,6 +135,10 @@ export default function ItemFormPage({ itemId }) {
                         <div className="space-y-2">
                             <Label htmlFor="facebook_post_url">Facebook post link</Label>
                             <Input id="facebook_post_url" type="url" value={form.facebook_post_url} onChange={(event) => updateField('facebook_post_url', event.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="facebook_post_id">Facebook post ID</Label>
+                            <Input id="facebook_post_id" value={form.facebook_post_id} onChange={(event) => updateField('facebook_post_id', event.target.value)} placeholder="Optional, useful when URL parsing fails" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="description">Description</Label>

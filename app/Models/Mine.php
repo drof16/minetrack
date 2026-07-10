@@ -35,6 +35,7 @@ class Mine extends Model
         'mine_rank',
         'mine_text',
         'facebook_comment_url',
+        'facebook_comment_id',
         'mine_time',
         'source',
         'status',

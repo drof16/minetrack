@@ -23,6 +23,7 @@ class StoreItemRequest extends FormRequest
             'condition' => ['nullable', 'string', 'max:255'],
             'selling_price' => ['required', 'numeric', 'min:0'],
             'facebook_post_url' => ['nullable', 'url', 'max:2048'],
+            'facebook_post_id' => ['nullable', 'string', 'max:255'],
             'photo_path' => ['nullable', 'string', 'max:255'],
             'status' => ['sometimes', 'required', Rule::in(Item::STATUSES)],
         ];

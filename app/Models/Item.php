@@ -41,6 +41,7 @@ class Item extends Model
         'condition',
         'selling_price',
         'facebook_post_url',
+        'facebook_post_id',
         'photo_path',
         'status',
     ];

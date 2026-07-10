@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Edit, Upload } from 'lucide-react';
+import { ArrowLeft, Edit, RefreshCw, Upload } from 'lucide-react';
 import { api } from '@/lib/api';
 import MineForm from '@/components/items/MineForm';
 import ItemStatusBadge from '@/components/items/ItemStatusBadge';
@@ -16,6 +16,8 @@ export default function ItemDetailPage({ itemId }) {
     const [error, setError] = useState('');
     const [mineFormMode, setMineFormMode] = useState('');
     const [confirmMove, setConfirmMove] = useState(false);
+    const [syncResult, setSyncResult] = useState(null);
+    const [isSyncing, setIsSyncing] = useState(false);
 
     async function loadItem() {
         try {
@@ -81,6 +83,23 @@ export default function ItemDetailPage({ itemId }) {
         } catch (exception) {
             const errors = exception.response?.data?.errors;
             setError(errors ? Object.values(errors).flat().join(' ') : exception.response?.data?.message || 'Backup miner could not be moved.');
+        }
+    }
+
+    async function syncFacebookComments() {
+        setError('');
+        setSyncResult(null);
+        setIsSyncing(true);
+
+        try {
+            const response = await api.post(`/items/${itemId}/facebook-page/sync-comments`, { limit: 100 });
+            setSyncResult(response.data.data);
+            await loadItem();
+        } catch (exception) {
+            const errors = exception.response?.data?.errors;
+            setError(errors ? Object.values(errors).flat().join(' ') : exception.response?.data?.message || 'Facebook Page comments could not be synced.');
+        } finally {
+            setIsSyncing(false);
         }
     }
 
@@ -154,6 +173,21 @@ export default function ItemDetailPage({ itemId }) {
                                 <div className="text-sm text-muted-foreground">Facebook post</div>
                                 {item.facebook_post_url ? <a href={item.facebook_post_url} target="_blank" rel="noreferrer" className="mt-1 block text-sm text-primary hover:underline">{item.facebook_post_url}</a> : <div className="mt-1 text-sm">-</div>}
                             </div>
+                            <div>
+                                <div className="text-sm text-muted-foreground">Facebook post ID</div>
+                                <div className="mt-1 text-sm">{item.facebook_post_id || '-'}</div>
+                            </div>
+                            <div className="flex items-end">
+                                <Button type="button" variant="outline" onClick={syncFacebookComments} disabled={isSyncing || (!item.facebook_post_url && !item.facebook_post_id)}>
+                                    <RefreshCw className="h-4 w-4" />
+                                    {isSyncing ? 'Syncing...' : 'Sync Page comments'}
+                                </Button>
+                            </div>
+                            {syncResult ? (
+                                <div className="md:col-span-2 rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800">
+                                    Scanned {syncResult.scanned} comments. Created {syncResult.created?.length || 0} mines. Skipped {syncResult.skipped?.length || 0}.
+                                </div>
+                            ) : null}
                         </CardContent>
                     </Card>
 
@@ -195,6 +229,7 @@ export default function ItemDetailPage({ itemId }) {
                                         <div>
                                             <div className="font-medium">#{mine.mine_rank} {mine.customer?.name || 'Unknown customer'} · {mine.status}</div>
                                             <div className="text-muted-foreground">{mine.mine_text}</div>
+                                            {mine.facebook_comment_url ? <a href={mine.facebook_comment_url} target="_blank" rel="noreferrer" className="text-primary hover:underline">Open Facebook comment</a> : null}
                                         </div>
                                         {mine.status === 'active' ? (
                                             <Button type="button" variant="destructive" size="sm" onClick={() => cancelMine(mine)}>Cancel</Button>

@@ -20,6 +20,7 @@ class ItemResource extends JsonResource
             'condition' => $this->condition,
             'selling_price' => $this->selling_price,
             'facebook_post_url' => $this->facebook_post_url,
+            'facebook_post_id' => $this->facebook_post_id,
             'photo_path' => $this->photo_path,
             'photo_url' => $this->photo_path ? Storage::disk('public')->url($this->photo_path) : null,
             'status' => $this->status,

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BulkMineImportController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\FacebookPageController;
 use App\Http\Controllers\Api\ItemController;
 use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\LocationController;
@@ -49,6 +50,8 @@ Route::middleware(['web', 'auth:sanctum'])->group(function (): void {
     Route::post('/items/{item}/move-to-next-miner', [MineController::class, 'moveToNextMiner']);
     Route::post('/bulk-mines/preview', [BulkMineImportController::class, 'preview']);
     Route::post('/bulk-mines/process', [BulkMineImportController::class, 'process']);
+    Route::get('/facebook-page/status', [FacebookPageController::class, 'status']);
+    Route::post('/items/{item}/facebook-page/sync-comments', [FacebookPageController::class, 'syncItemComments']);
 
     Route::apiResource('customers', CustomerController::class);
     Route::get('/customers/{customer}/mined-items', [CustomerController::class, 'minedItems']);

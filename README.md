@@ -66,7 +66,7 @@ Implemented from the project spec:
 - Seeders for admin, categories, payment methods, settings, and locations
 - React dashboard, item list/form/detail, customer list/form/detail, Mine Tracker, order list/create/detail, invoice list/detail, payment history, packing, pickup/delivery, reports, and settings screens
 
-Facebook API integration is intentionally not included in this MVP foundation.
+Facebook Page comment sync is now available as an optional automation step. The app still supports manual-first operation, and personal profile automation is intentionally not supported.
 
 ## Progress Log
 
@@ -103,6 +103,7 @@ Completed:
 - Added frontend auth gate, 401 redirect handling, logout button, and logged-in user display.
 - Tightened payment-method routes for explicit route model binding.
 - Updated project progress checklist.
+- Added optional Facebook Page comment sync for importing mine comments from Page posts.
 
 Verified:
 

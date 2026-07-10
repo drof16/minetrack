@@ -107,6 +107,7 @@ class MineService
             'mine_rank' => $nextRank,
             'mine_text' => $data['mine_text'],
             'facebook_comment_url' => $data['facebook_comment_url'] ?? null,
+            'facebook_comment_id' => $data['facebook_comment_id'] ?? null,
             'mine_time' => $data['mine_time'] ?? now(),
             'source' => $data['source'] ?? 'manual',
             'status' => $status,

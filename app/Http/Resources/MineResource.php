@@ -32,6 +32,7 @@ class MineResource extends JsonResource
             'mine_rank' => $this->mine_rank,
             'mine_text' => $this->mine_text,
             'facebook_comment_url' => $this->facebook_comment_url,
+            'facebook_comment_id' => $this->facebook_comment_id,
             'mine_time' => $this->mine_time?->toISOString(),
             'source' => $this->source,
             'status' => $this->status,

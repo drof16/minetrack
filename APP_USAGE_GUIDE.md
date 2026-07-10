@@ -17,7 +17,9 @@ For one-click startup after a reboot or power interruption, double-click:
 START_MineTrack_SERVER.cmd
 ```
 
-Keep the command window open while using MineTrack. Closing the window stops the server.
+The starter updates local/Tailscale browser settings automatically, checks database access, then starts the app. Keep the command window open while using MineTrack. Closing the window stops the server.
+
+If the command window says the database login failed, your workstation IP changed. Open HeidiSQL as a working admin user and run the SQL shown in the command window, then start `START_MineTrack_SERVER.cmd` again.
 
 Open:
 
@@ -43,7 +45,7 @@ For access from another Tailscale-connected device, run the server with:
 Then open this PC's Tailscale URL:
 
 ```text
-http://100.115.130.43:8000
+http://YOUR-TAILSCALE-IP:8000
 ```
 
 If the Tailscale URL does not load from another device, allow inbound TCP port `8000` in Windows Firewall for this PC.

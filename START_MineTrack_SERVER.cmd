@@ -24,27 +24,25 @@ if not exist ".\artisan" (
     exit /b 1
 )
 
-echo Checking for an existing server on port 8000...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$listener = Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue | Where-Object { $_.State -eq 'Listen' } | Select-Object -First 1; if ($listener) { Write-Host 'Stopping existing process on port 8000...' ; Stop-Process -Id $listener.OwningProcess -Force }"
-
 echo.
-echo Clearing Laravel config cache...
-".\tools\php\php.exe" artisan config:clear
+echo Preparing local and Tailscale settings...
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\prepare-minetrack-start.ps1"
 if errorlevel 1 (
     echo.
-    echo ERROR: Laravel config clear failed.
+    echo ERROR: MineTrack cannot start until the database login is fixed.
     pause
     exit /b 1
 )
+
+echo.
+echo Checking for an existing server on port 8000...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$listener = Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue | Where-Object { $_.State -eq 'Listen' } | Select-Object -First 1; if ($listener) { Write-Host 'Stopping existing process on port 8000...' ; Stop-Process -Id $listener.OwningProcess -Force }"
 
 echo.
 echo Starting MineTrack...
 echo.
 echo Local URL:
 echo   http://localhost:8000
-echo.
-echo Tailscale URL:
-echo   http://100.115.130.43:8000
 echo.
 echo Login:
 echo   admin@minetrack.local / password

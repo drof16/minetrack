@@ -11,6 +11,14 @@ From the project folder:
 .\tools\php\php.exe artisan serve --host=127.0.0.1 --port=8000
 ```
 
+For one-click startup after a reboot or power interruption, double-click:
+
+```text
+START_MineTrack_SERVER.cmd
+```
+
+Keep the command window open while using MineTrack. Closing the window stops the server.
+
 Open:
 
 ```text

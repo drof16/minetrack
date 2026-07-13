@@ -10,6 +10,31 @@
 - Writable `storage` and `bootstrap/cache`
 - Daily database and storage backups
 
+## Render
+
+MineTrack includes a `render.yaml` Blueprint and Docker setup for Render. The Blueprint creates:
+
+- A Docker web service named `minetrack`
+- A Render Postgres database named `minetrack-db`
+
+Deploy from Render by creating a new Blueprint from the Git repository. After the service is created, update these environment variables in Render:
+
+```text
+APP_KEY=base64:... from `php artisan key:generate --show`
+APP_URL=https://your-render-service-or-custom-domain
+ASSET_URL=https://your-render-service-or-custom-domain
+FACEBOOK_PAGE_ID=...
+FACEBOOK_PAGE_ACCESS_TOKEN=...
+```
+
+The container runs `php artisan migrate --force` on startup. For the first production admin account and default settings, run this once from the Render shell:
+
+```bash
+php artisan db:seed --force
+```
+
+Then immediately change the seeded admin password.
+
 ## First Deploy
 
 ```bash

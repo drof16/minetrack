@@ -17,9 +17,9 @@ services:
       - key: APP_KEY
         sync: false
       - key: APP_URL
-        value: https://minetrack.onrender.com
+        value: https://minetrack-w2xo.onrender.com
       - key: ASSET_URL
-        value: https://minetrack.onrender.com
+        value: https://minetrack-w2xo.onrender.com
       - key: LOG_CHANNEL
         value: stderr
       - key: LOG_LEVEL

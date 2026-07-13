@@ -64,6 +64,11 @@ export default function LoginPage() {
                             {isSubmitting ? 'Signing in...' : 'Login'}
                         </Button>
                     </form>
+                    <div className="mt-4 text-center text-sm text-muted-foreground">
+                        <a className="font-medium text-primary hover:underline" href="/privacy-policy">
+                            Privacy Policy
+                        </a>
+                    </div>
                 </CardContent>
             </Card>
         </AuthLayout>

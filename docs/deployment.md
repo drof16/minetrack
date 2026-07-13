@@ -27,13 +27,9 @@ FACEBOOK_PAGE_ID=...
 FACEBOOK_PAGE_ACCESS_TOKEN=...
 ```
 
-The container runs `php artisan migrate --force` on startup. For the first production admin account and default settings, run this once from the Render shell:
+The container runs `php artisan migrate --force` and `php artisan db:seed --force` on startup, so Render Shell is not required for first deploy. The admin seeder creates the default admin only if it does not already exist, so later deploys do not reset the password.
 
-```bash
-php artisan db:seed --force
-```
-
-Then immediately change the seeded admin password.
+After first login, immediately change the seeded admin password.
 
 ## First Deploy
 
